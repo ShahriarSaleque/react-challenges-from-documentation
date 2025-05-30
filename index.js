@@ -290,3 +290,54 @@ function Form() {
     />
   );
 }
+
+// Challenge - 6
+// swap vals keeping state intact 
+import { useState } from 'react';
+
+export default function App() {
+  const [reverse, setReverse] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  
+  let checkbox = (
+    <label>
+      <input
+        type="checkbox"
+        checked={reverse}
+        onChange={e => setReverse(e.target.checked)}
+      />
+      Reverse order
+    </label>
+  );
+
+  return (
+    <>
+    {reverse ? 
+      <>
+        <Field label="Last Name" name={lastName} setName={setLastName} />
+        <Field label="First Name"  name={firstName} setName={setFirstName} />
+      </> : <>
+      <Field label="First Name" name={firstName} setName={setFirstName}/>
+        <Field label="Last Name" name={lastName} setName={setLastName} />
+      </>
+    }
+    {checkbox}
+    </>
+  )
+}
+
+function Field({ label, name, setName}) {
+  const [text, setText] = useState('');
+  return (
+    <label>
+      {label}:{' '}
+      <input
+        type="text"
+        value={name}
+        placeholder={label}
+        onChange={e => setName(e.target.value)}
+      />
+    </label>
+  );
+}
