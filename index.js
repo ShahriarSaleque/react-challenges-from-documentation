@@ -384,3 +384,41 @@ export default function Chat({contact, message, dispatch}) {
     </section>
   );
 }
+
+
+// Challenge - 8
+// modify the useReducer hook 
+export const initialState = {
+  selectedId: 0,
+  contactID_message: {},
+};
+
+export function messengerReducer(state, action) {
+  switch (action.type) {
+    case "changed_selection": {
+      return {
+        ...state,
+        selectedId: action.contactId,
+      };
+    }
+    case "edited_message": {
+      return {
+        ...state,
+        message: action.message,
+        contactID_message: {
+          ...state.contactID_message,
+          [action.contactID]: action.message,
+        },
+      };
+    }
+    case "sent_message": {
+      return {
+        ...state,
+        message: "",
+      };
+    }
+    default: {
+      throw Error("Unknown action: " + action.type);
+    }
+  }
+}
