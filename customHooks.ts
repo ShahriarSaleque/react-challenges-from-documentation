@@ -134,4 +134,19 @@ export default function useCycle<T>(...args: T[]) {
     return [mode, cycle];
 }
 
+// useDefault value hook
+export default function useDefault<TStateType>(
+  defaultValue: TStateType,
+  initialValue: TStateType | (() => TStateType),
+) {
+  const [user, setUser] = useState(initialValue);
+
+  if (user === null || user === undefined) {
+    return [defaultValue, setUser];
+  }
+
+  return [user, setUser];
+}
+
+
 
