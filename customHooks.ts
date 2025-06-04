@@ -111,3 +111,27 @@ export default function useCounter(initialValue?: number): UseCounterReturn {
      count , increment, decrement, reset, setCount
    }
 }
+
+// useCycle hook 
+// memoised 
+// finding the next value in a cyclic manner by getting the remainder of the index 
+import { useState, useCallback, useRef } from "react";
+
+export default function useCycle<T>(...args: T[]) {
+    const indexRef = useRef(0);
+    const arrLength = args.length; 
+
+    const [mode, setMode] = useState(args[0]);
+
+    const cycle = useCallback(() => {
+        // make it cyclic 
+        // remainder by dividing with the 
+        // array length will make sure the cyclic val is reached 
+        indexRef.current = (indexRef.current + 1) % arrLength; 
+        setMode(args[indexRef.current]);
+    } , []); 
+    
+    return [mode, cycle];
+}
+
+
